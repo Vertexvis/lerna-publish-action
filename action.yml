@@ -1,0 +1,38 @@
+name: "Lerna Publish"
+description: "Publishes packages in a Lerna project and creates a Github release."
+inputs:
+  github-token:
+    description: "Github auth token to create a release through Github's API."
+    required: true
+  repository:
+    description: "The owner and repo name, vertexvis/repo."
+    required: true
+  version:
+    description: "A string describing the release version."
+    required: true
+  commitish:
+    description: "A SHA or branch name to use as the tag for the release."
+    required: true
+  name:
+    description: "The name of the Github release."
+    required: true
+  body:
+    description: "The description of the Github release."
+    required: true
+  draft:
+    description: "A flag indicating if this is a draft release."
+    required: false
+  prerelease:
+    description: "A flag indicating if this is a prerelease."
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.github-token }}
+    - ${{ inputs.version }}
+    - ${{ inputs.commitish }}
+    - ${{ inputs.name }}
+    - ${{ inputs.body }}
+    - ${{ inputs.draft }}
+    - ${{ inputs.prerelease }}
