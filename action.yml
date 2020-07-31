@@ -7,9 +7,6 @@ inputs:
   repository:
     description: "The owner and repo name, vertexvis/repo."
     required: true
-  version:
-    description: "A string describing the release version."
-    required: true
   commitish:
     description: "A SHA or branch name to use as the tag for the release."
     required: true
@@ -26,13 +23,5 @@ inputs:
     description: "A flag indicating if this is a prerelease."
     required: false
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.github-token }}
-    - ${{ inputs.version }}
-    - ${{ inputs.commitish }}
-    - ${{ inputs.name }}
-    - ${{ inputs.body }}
-    - ${{ inputs.draft }}
-    - ${{ inputs.prerelease }}
+  using: "node12"
+  main: "index.js"
